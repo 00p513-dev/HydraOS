@@ -1,4 +1,4 @@
 # HydraOS
- An Operating System built from IncludeOS!
+ An Operating System built from scratch!
 
 ## Coming Soon!
