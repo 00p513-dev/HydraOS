@@ -8,12 +8,9 @@ NASMPARAMS = -felf32
 LDPARAMS = -melf_i386
 
 
-objects = 
+objects = loader.o kernel.o
 
-kc.o: kernel.c
-	gcc $(GCCPARAMS) -c -o $@ $<
-
-kasm.o: kernel.asm
+%.o: %.asm
 	nasm $(NASMPARAMS) -o $@ $<
 
 %.o: %.c
@@ -22,8 +19,8 @@ kasm.o: kernel.asm
 %.o: %.s
 	as $(ASPARAMS) -o $@ $<
 
-kernel-felf64: link.ld $(objects) kasm.o kc.o
-	ld $(LDPARAMS) -T $< -o $@ kasm.o kc.o  $(objects)
+kernel: link.ld $(objects)
+	ld $(LDPARAMS) -T $< -o $@ $(objects)
 
 test.iso: kernel
 	mkdir iso
@@ -35,12 +32,6 @@ test.iso: kernel
 	echo '' 								 >> iso/boot/grub/grub.cfg
 	echo 'menuentry "HydraOS Test ISO" {' >> iso/boot/grub/grub.cfg
 	echo '	multiboot /boot/kernel'	>> iso/boot/grub/grub.cfg
-	echo '	boot'							 >> iso/boot/grub/grub.cfg
-	echo '}'								 >> iso/boot/grub/grub.cfg
-	
-	echo 'menuentry "First HDD {' >> iso/boot/grub/grub.cfg
-	echo '	set root=(hd0)'	>> iso/boot/grub/grub.cfg
-	echo '	chainloader+1'							 >> iso/boot/grub/grub.cfg
 	echo '	boot'							 >> iso/boot/grub/grub.cfg
 	echo '}'								 >> iso/boot/grub/grub.cfg
 	grub-mkrescue --output=test.iso iso
@@ -65,4 +56,5 @@ install: kernel
 clean:
 	(killall qemu-system-i386 && sleep 1) || true
 	(killall VirtualBox && sleep 1) || true
-	rm -f kasm.o kc.o $(objects) kernel test.iso
+	rm -rf iso
+	rm -f $(objects) kernel test.iso
