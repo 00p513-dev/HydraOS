@@ -1,1 +1,1 @@
-brew install xorriso i386-elf-grub gcc nasm qemu
+sudo apt install  xorriso gcc nasm qemu grub-efi-amd64
