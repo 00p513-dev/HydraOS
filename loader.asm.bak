@@ -1,0 +1,17 @@
+bits          32
+section       .text
+  align       4
+  dd          0x1BADB002
+  dd          0x00
+  dd          - (0x1BADB002+0x00)
+
+global        start
+extern        kmain
+start:
+	mov	edi, 0xB8000		; get pointer to video memory
+	mov	[edi], 'A'		; print character 'A'
+	mov	[edi+1], 0x7		; character attribute
+
+	cli
+	call        kmain
+	hlt

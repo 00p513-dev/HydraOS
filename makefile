@@ -11,9 +11,12 @@ LDPARAMS = -melf_i386
 objects = loader.o kernel.o
 
 %.o: %.asm
-	nasm $(NASMPARAMS) -o $@ $<
+	nasm $(NASMPARAMS) $<
 
 %.o: %.c
+	gcc $(GCCPARAMS) -c -o $@ $<
+
+%.o: %.cpp
 	gcc $(GCCPARAMS) -c -o $@ $<
 
 %.o: %.s
