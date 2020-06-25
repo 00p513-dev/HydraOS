@@ -1,0 +1,12 @@
+task:
+    # Basic metadata:
+    name: build-all
+    # The build machine:
+    container:
+        image: alpine:latest
+    # Instructions:
+    dependency_script: apk add build-base nasm
+    makeclean_script: make clean
+    make_script: make kernel
+    kernel_artifacts:
+        path: kernel
