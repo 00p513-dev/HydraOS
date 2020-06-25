@@ -1,1 +1,1 @@
-sudo apt install  xorriso gcc nasm qemu grub-efi-amd64
+sudo apt install  xorriso gcc nasm qemu grub build-essential
