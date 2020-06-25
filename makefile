@@ -16,6 +16,9 @@ objects = loader.o kernel.o
 %.o: %.c
 	gcc $(GCCPARAMS) -c -o $@ $<
 
+%.o: %.cpp
+	g++ $(GCCPARAMS) -c -o $@ $<
+	
 %.o: %.s
 	as $(ASPARAMS) -o $@ $<
 
