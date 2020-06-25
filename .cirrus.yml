@@ -1,0 +1,10 @@
+task:
+    # Basic metadata:
+    name: build-all
+    # The build machine:
+    container:
+        image: debian:latest
+    # Instructions:
+    make_script: make
+    kernel_artifacts:
+        path: kernel
