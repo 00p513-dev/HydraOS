@@ -5,6 +5,7 @@ task:
     container:
         image: gcc:latest
     # Instructions:
+    make_clean: make clean
     make_script: make kernel
     kernel_artifacts:
         path: kernel
